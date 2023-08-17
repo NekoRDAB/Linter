@@ -22,7 +22,12 @@ class CodeLines:
         return tuple(self._lines[self._line])
 
     def get_symbol(self):
-        return self._lines[self._line][self._symbol]
+        def is_inside_borders():
+            return self._line < len(self._lines) \
+                and self._symbol < len(self._lines[self._line])
+        if is_inside_borders():
+            return self._lines[self._line][self._symbol]
+        return None
 
     @property
     def line_number(self):

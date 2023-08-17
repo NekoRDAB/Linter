@@ -1,4 +1,4 @@
-from constants import OPERATORS
+from constants import OPERATORS, KEYWORDS
 from line_tokens import LineTokens
 from code_lines import CodeLines
 from token_class import Token
@@ -15,7 +15,7 @@ class Tokenizer:
 
         result = []
         current_token = self.try_read_next()
-        while current_token != None:
+        while current_token is not None:
             result.append(current_token)
             current_token = self.try_read_next()
         return LineTokens(result)
@@ -30,6 +30,9 @@ class Tokenizer:
             return self.read_operator()
         elif first_symbol == ' ':
             return self.read_whitespaces()
+        elif first_symbol.isalpha() or first_symbol == "_" \
+                or first_symbol.isdigit():
+            return self.read_identifier_or_keyword()
 
     def read_operator(self):
         code = self._code
@@ -54,3 +57,20 @@ class Tokenizer:
                 code.step_back()
                 break
         return Token(TokenType.WHITESPACE, value, position)
+
+    def read_identifier_or_keyword(self):
+        def is_legal_symbol(char):
+            return char.isalpha() or char == "_" or char.isdigit()
+
+        code = self._code
+        value = code.get_symbol()
+        position = (code.line_number, code.symbol_number)
+        while code.next_symbol():
+            if is_legal_symbol(code.get_symbol()):
+                value += code.get_symbol()
+            else:
+                code.step_back()
+                break
+        if value in KEYWORDS:
+            return Token(TokenType.KEYWORD, value, position)
+        return Token(TokenType.IDENTIFIER, value, position)

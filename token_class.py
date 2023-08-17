@@ -15,3 +15,6 @@ class Token:
     @property
     def pos(self):
         return self._position
+
+    def __repr__(self):
+        return f"Token({self._type}, {self._value}, {self._position})"

@@ -1,5 +1,7 @@
-import argparse, os
+import argparse
+import os
 from os.path import isfile, splitext
+
 from linter import Linter
 
 
@@ -26,11 +28,13 @@ def main():
 def path_correct(path):
     if isfile(path):
         if splitext(path)[-1] != ".py":
-            raise ValueError("Code file must have a .py extension")
+            print("Code file must have a .py extension")
+            return False
         else:
             return True
     else:
-        raise ValueError("The path must lead to a .py file")
+        print("The path must lead to an existing .py file")
+        return False
 
 
 if __name__ == "__main__":
