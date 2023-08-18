@@ -30,8 +30,7 @@ class Tokenizer:
             return self.read_operator()
         elif first_symbol == ' ':
             return self.read_whitespaces()
-        elif first_symbol.isalpha() or first_symbol == "_" \
-                or first_symbol.isdigit():
+        elif first_symbol.isalpha() or first_symbol == "_":
             return self.read_identifier_or_keyword()
 
     def read_operator(self):
