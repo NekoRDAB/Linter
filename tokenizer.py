@@ -1,4 +1,4 @@
-from constants import OPERATORS, KEYWORDS
+from constants import OPERATORS, KEYWORDS, SYMBOLS
 from line_tokens import LineTokens
 from code_lines import CodeLines
 from token_class import Token
@@ -32,6 +32,8 @@ class Tokenizer:
             return self.read_whitespaces()
         elif first_symbol.isalpha() or first_symbol == "_":
             return self.read_identifier_or_keyword()
+        elif first_symbol in SYMBOLS:
+            return self.read_symbol()
 
     def read_operator(self):
         code = self._code
@@ -73,3 +75,8 @@ class Tokenizer:
         if value in KEYWORDS:
             return Token(TokenType.KEYWORD, value, position)
         return Token(TokenType.IDENTIFIER, value, position)
+
+    def read_symbol(self):
+        code = self._code
+        position = (code.line_number, code.symbol_number)
+        return Token(TokenType.SYMBOL, code.get_symbol(), position)

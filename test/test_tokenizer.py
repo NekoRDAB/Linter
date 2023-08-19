@@ -54,7 +54,20 @@ class Test(unittest.TestCase):
             'and', 'not', 'or', 'while', 'for', 'is', 'def', 'class',
             'with', 'as', 'python', 'test', 'variable', 'digits123'
         ]
-        print(result)
+        self.assertEqual(result, expected)
+
+    def test_read_symbols(self):
+        path = PATH_TO_DIR + r"\symbols_tokens.txt"
+        tokenizer = Tokenizer(path)
+        tokenizer._code.next_line()
+        token = tokenizer.try_read_next()
+        result = []
+        while token and token.value is not None:
+            if token.type == TokenType.SYMBOL:
+                result.append(token.value)
+            token = tokenizer.try_read_next()
+
+        expected = ['\'', '\"', '#', ':', '(', ')', '[', ']', '.', ',']
         self.assertEqual(result, expected)
 
 

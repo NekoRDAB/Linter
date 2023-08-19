@@ -3,3 +3,4 @@ class TokenType:
     WHITESPACE = 2
     KEYWORD = 3
     IDENTIFIER = 4
+    SYMBOL = 5
