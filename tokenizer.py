@@ -38,6 +38,8 @@ class Tokenizer:
             return self.read_integer_constant()
         elif first_symbol == "#":
             return self.read_inline_comment()
+        elif first_symbol in ['\'', '\"']:
+            return self.read_string_constant()
         else:
             raise NotImplementedError()
 
@@ -99,6 +101,17 @@ class Tokenizer:
                 code.step_back()
                 break
         return Token(TokenType.INTEGER_CONSTANT, value, position)
+
+    def read_string_constant(self):
+        code = self._code
+        value = code.get_symbol()
+        position = code.position
+        while code.next_symbol():
+            symbol = code.get_symbol()
+            value += symbol
+            if symbol == value[0]:
+                break
+        return Token(TokenType.STRING_CONSTANT, value, position)
 
     def read_inline_comment(self):
         value = ''
