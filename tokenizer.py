@@ -36,13 +36,15 @@ class Tokenizer:
             return self.read_symbol()
         elif first_symbol.isdigit():
             return self.read_integer_constant()
+        elif first_symbol == "#":
+            return self.read_inline_comment()
         else:
             raise NotImplementedError()
 
     def read_operator(self):
         code = self._code
         value = code.get_symbol()
-        position = (code.line_number, code.symbol_number)
+        position = code.position
         while code.next_symbol():
             if value + code.get_symbol() in OPERATORS:
                 value += code.get_symbol()
@@ -54,7 +56,7 @@ class Tokenizer:
     def read_whitespaces(self):
         value = ' '
         code = self._code
-        position = (code.line_number, code.symbol_number)
+        position = code.position
         while code.next_symbol():
             if code.get_symbol() == ' ':
                 value += ' '
@@ -69,7 +71,7 @@ class Tokenizer:
 
         code = self._code
         value = code.get_symbol()
-        position = (code.line_number, code.symbol_number)
+        position = code.position
         while code.next_symbol():
             if is_legal_symbol(code.get_symbol()):
                 value += code.get_symbol()
@@ -82,11 +84,26 @@ class Tokenizer:
 
     def read_symbol(self):
         code = self._code
-        position = (code.line_number, code.symbol_number)
+        position = code.position
         return Token(TokenType.SYMBOL, code.get_symbol(), position)
 
     def read_integer_constant(self):
-        return Token(TokenType.INTEGER_CONSTANT, "", (0, 0))  # TODO: Написать этот метод, когда будут силы.
+        code = self._code
+        value = code.get_symbol()
+        position = code.position
+        while code.next_symbol():
+            symbol = code.get_symbol()
+            if symbol.isdigit():
+                value += symbol
+            else:
+                code.step_back()
+                break
+        return Token(TokenType.INTEGER_CONSTANT, value, position)
 
     def read_inline_comment(self):
-        pass
+        value = ''
+        code = self._code
+        position = code.position
+        while code.next_symbol():
+            value += code.get_symbol()
+        return Token(TokenType.INLINE_COMMENT, value, position)

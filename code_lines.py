@@ -36,3 +36,7 @@ class CodeLines:
     @property
     def symbol_number(self):
         return self._symbol
+
+    @property
+    def position(self):
+        return self._line, self._symbol

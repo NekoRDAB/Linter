@@ -5,3 +5,4 @@ class TokenType:
     IDENTIFIER = 4
     SYMBOL = 5
     INTEGER_CONSTANT = 6
+    INLINE_COMMENT = 7
