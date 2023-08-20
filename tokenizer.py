@@ -34,6 +34,10 @@ class Tokenizer:
             return self.read_identifier_or_keyword()
         elif first_symbol in SYMBOLS:
             return self.read_symbol()
+        elif first_symbol.isdigit():
+            return self.read_integer_constant()
+        else:
+            raise NotImplementedError()
 
     def read_operator(self):
         code = self._code
@@ -80,3 +84,9 @@ class Tokenizer:
         code = self._code
         position = (code.line_number, code.symbol_number)
         return Token(TokenType.SYMBOL, code.get_symbol(), position)
+
+    def read_integer_constant(self):
+        return Token(TokenType.INTEGER_CONSTANT, "", (0, 0))  # TODO: Написать этот метод, когда будут силы.
+
+    def read_inline_comment(self):
+        pass

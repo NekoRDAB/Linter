@@ -10,13 +10,11 @@ class Test(unittest.TestCase):
     def test_read_operator(self):
         path = PATH_TO_DIR + r"\operator_tokens.txt"
         tokenizer = Tokenizer(path)
-        tokenizer._code.next_line()
-        token = tokenizer.try_read_next()
+        tokens_line = tokenizer.read_line()
         result = []
-        while token and token.value is not None:
+        for token in tokens_line.tokens:
             if token.type == TokenType.OPERATOR:
                 result.append(token.value)
-            token = tokenizer.try_read_next()
 
         expected = [
             '+', '-', '*', '/', '%', '**', '//', '=', '!',
@@ -27,13 +25,11 @@ class Test(unittest.TestCase):
     def test_read_whitespaces(self):
         path = PATH_TO_DIR + r"\whitespaces_tokens.txt"
         tokenizer = Tokenizer(path)
-        tokenizer._code.next_line()
-        token = tokenizer.try_read_next()
+        tokens_line = tokenizer.read_line()
         result = []
-        while token and token.value is not None:
+        for token in tokens_line.tokens:
             if token.type == TokenType.WHITESPACE:
                 result.append(token.value)
-            token = tokenizer.try_read_next()
 
         expected = [' ', '  ', '   ', ' ']
         self.assertEqual(result, expected)
@@ -41,14 +37,11 @@ class Test(unittest.TestCase):
     def test_read_identifier_or_keyword(self):
         path = PATH_TO_DIR + r"\keywords_identifiers_tokens.txt"
         tokenizer = Tokenizer(path)
-        tokenizer._code.next_line()
-        token = tokenizer.try_read_next()
+        tokens_line = tokenizer.read_line()
         result = []
-        while token and token.value is not None:
-            if token.type == TokenType.KEYWORD \
-                    or token.type == TokenType.IDENTIFIER:
+        for token in tokens_line.tokens:
+            if token.type in [TokenType.KEYWORD, TokenType.IDENTIFIER]:
                 result.append(token.value)
-            token = tokenizer.try_read_next()
 
         expected = [
             'and', 'not', 'or', 'while', 'for', 'is', 'def', 'class',
@@ -59,13 +52,11 @@ class Test(unittest.TestCase):
     def test_read_symbols(self):
         path = PATH_TO_DIR + r"\symbols_tokens.txt"
         tokenizer = Tokenizer(path)
-        tokenizer._code.next_line()
-        token = tokenizer.try_read_next()
+        tokens_line = tokenizer.read_line()
         result = []
-        while token and token.value is not None:
+        for token in tokens_line.tokens:
             if token.type == TokenType.SYMBOL:
                 result.append(token.value)
-            token = tokenizer.try_read_next()
 
         expected = ['\'', '\"', '#', ':', '(', ')', '[', ']', '.', ',']
         self.assertEqual(result, expected)

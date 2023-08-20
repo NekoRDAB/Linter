@@ -4,3 +4,4 @@ class TokenType:
     KEYWORD = 3
     IDENTIFIER = 4
     SYMBOL = 5
+    INTEGER_CONSTANT = 6
