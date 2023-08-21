@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
 
     def test_read_whitespaces(self):
         result = self.tokenizing(
-            r"\whitespaces_tokens.txt", [TokenType.WHITESPACE]
+            r"\whitespaces_tokens.txt", [TokenType.SPACE]
         )
         expected = [' ', '  ', '   ', ' ']
         self.assertEqual(expected, result)
@@ -70,7 +70,7 @@ class Test(unittest.TestCase):
 
     def test_read_inline_comment(self):
         result = self.tokenizing(
-            r"\inline_comments_tokens.txt", [TokenType.INLINE_COMMENT]
+            r"\inline_comments_tokens.txt", [TokenType.COMMENT]
         )
         expected = ["inline comment"]
         self.assertEqual(expected, result)

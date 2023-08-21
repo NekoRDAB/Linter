@@ -5,7 +5,7 @@ OPERATORS = [
     ]
 KEYWORDS = [
         "and", "not", "or", "while", "for", "is", "def", "class",
-        "with", "as", 'self'
+        "with", "as", "self", "from", "import"
 ]
 SYMBOLS = [
         ':', '(', ')', '[', ']', '.', ',',

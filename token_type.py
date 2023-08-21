@@ -1,9 +1,10 @@
 class TokenType:
+    TEMPORARY = -1
     OPERATOR = 1
-    WHITESPACE = 2
+    SPACE = 2
     KEYWORD = 3
     IDENTIFIER = 4
     SYMBOL = 5
     INTEGER_CONSTANT = 6
     STRING_CONSTANT = 7
-    INLINE_COMMENT = 8
+    COMMENT = 8

@@ -65,7 +65,7 @@ class Tokenizer:
             else:
                 code.step_back()
                 break
-        return Token(TokenType.WHITESPACE, value, position)
+        return Token(TokenType.SPACE, value, position)
 
     def read_identifier_or_keyword(self):
         def is_legal_symbol(char):
@@ -119,4 +119,4 @@ class Tokenizer:
         position = code.position
         while code.next_symbol():
             value += code.get_symbol()
-        return Token(TokenType.INLINE_COMMENT, value, position)
+        return Token(TokenType.COMMENT, value, position)
