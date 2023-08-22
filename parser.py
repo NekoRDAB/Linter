@@ -9,7 +9,10 @@ class Parser:
 
     def parse(self, tokens_lines):
         for line in tokens_lines:
-            pass
+            self.parse_line_package(line)
+            self.parse_line_classes(line)
+            self.parse_line_methods(line)
+            self.parse_line_variables(line)
 
     def parse_line_package(self, tokens_line):
         tokens = self.skip_whitespaces_and_comments(tokens_line)
@@ -53,3 +56,7 @@ class Parser:
             if token.type not in [TokenType.SPACE, TokenType.COMMENT]:
                 result.append(token)
         return result
+
+    @property
+    def table(self):
+        return self._table

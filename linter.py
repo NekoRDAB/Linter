@@ -4,6 +4,7 @@ from json import load
 from token_type import TokenType
 from style_checker import StyleChecker
 from style_warning import StyleProblem
+from parser import Parser
 
 
 class Linter:
@@ -11,6 +12,9 @@ class Linter:
         self._tokenizer = Tokenizer(code_file)
         self._tokens_lines = []
         self._style_checker = None
+        self._parser = None
+        self._symbol_table = None
+        self.register_identifiers()
         with open(rules) as f:
             self._rules = load(f)
 
@@ -31,7 +35,9 @@ class Linter:
             tokens_line = self._tokenizer.read_line()
 
     def register_identifiers(self):
-        pass
+        self._parser = Parser(self._tokens_lines)
+        self._symbol_table = self._parser.table
+        self._style_checker = StyleChecker(self._symbol_table)
 
     def check_variables_style(self):
         def check_variable_style():
