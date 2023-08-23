@@ -5,6 +5,7 @@ from token_type import TokenType
 from style_checker import StyleChecker
 from style_warning import StyleProblem
 from parser import Parser
+from identifier_type import IdentifierType
 
 
 class Linter:
@@ -46,10 +47,9 @@ class Linter:
             if not correct:
                 StyleProblem.warning(token.position, message)
 
-        for line in self._tokens_lines:
-            for token in line:
-                if token.type == TokenType.IDENTIFIER:
-                    check_variable_style()
+        for token in self._symbol_table:
+            if self._symbol_table[token] == IdentifierType.VARIABLE:
+                check_variable_style()
 
     def check_whitespaces(self):
         pass
