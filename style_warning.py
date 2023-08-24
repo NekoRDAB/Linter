@@ -1,4 +1,4 @@
 class StyleProblem:
     @staticmethod
-    def warning(position, message):
-        print(f"Style guide discrepancy at {position}: {message}")
+    def warning(token, message):
+        print(f"Style guide discrepancy in {token.value} {token.position}: {message}")

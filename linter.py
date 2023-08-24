@@ -38,18 +38,21 @@ class Linter:
     def register_identifiers(self):
         self._parser = Parser(self._tokens_lines)
         self._symbol_table = self._parser.table
-        self._style_checker = StyleChecker(self._symbol_table)
 
     def check_variables_style(self):
-        def check_variable_style():
-            result = self._style_checker.check_variable_style(token)
+        for token in self._symbol_table:
+            result = None
+            if self._symbol_table[token] == IdentifierType.VARIABLE:
+                result = StyleChecker.check_variable_style(token)
+            elif self._symbol_table[token] == IdentifierType.METHOD:
+                result = StyleChecker.check_method_style(token)
+            elif self._symbol_table[token] == IdentifierType.PACKAGE:
+                result = StyleChecker.check_package_style(token)
+            elif self._symbol_table[token] == IdentifierType.CLASS:
+                result = StyleChecker.check_class_style(token)
             correct, message = result
             if not correct:
-                StyleProblem.warning(token.position, message)
-
-        for token in self._symbol_table:
-            if self._symbol_table[token] == IdentifierType.VARIABLE:
-                check_variable_style()
+                StyleProblem.warning(token, message)
 
     def check_whitespaces(self):
         pass
