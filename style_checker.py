@@ -1,26 +1,27 @@
-class StyleChecker:
-    def __init__(self, symbol_table):
-        self._table = symbol_table
+def is_english_letter(letter):
+    return 'a' <= letter <= 'z'
 
+
+class StyleChecker:
     @staticmethod
-    def check_variable_style(identifier):
+    def check_variable_style(name):
         message = ""
         correct = True
 
-        for symbol in identifier.value:
+        for symbol in name:
             if symbol.isdigit():
                 message += "A variable name must not contain digits.\n"
                 correct = False
                 break
 
-        for symbol in identifier.value:
-            if symbol.isalpha() and symbol.isupper():
+        for symbol in name:
+            if is_english_letter(symbol) and symbol.isupper():
                 message += "A variable name must not contain uppercase letters.\n"
                 correct = False
                 break
 
-        for symbol in identifier.value:
-            if not (symbol.isalpha() or symbol == '_'):
+        for symbol in name:
+            if not (is_english_letter(symbol) or symbol == '_'):
                 message += f"A variable name contains illegal symbol: {symbol}.\n"
                 correct = False
                 break

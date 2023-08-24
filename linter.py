@@ -43,13 +43,13 @@ class Linter:
         for token in self._symbol_table:
             result = None
             if self._symbol_table[token] == IdentifierType.VARIABLE:
-                result = StyleChecker.check_variable_style(token)
+                result = StyleChecker.check_variable_style(token.value)
             elif self._symbol_table[token] == IdentifierType.METHOD:
-                result = StyleChecker.check_method_style(token)
+                result = StyleChecker.check_method_style(token.value)
             elif self._symbol_table[token] == IdentifierType.PACKAGE:
-                result = StyleChecker.check_package_style(token)
+                result = StyleChecker.check_package_style(token.value)
             elif self._symbol_table[token] == IdentifierType.CLASS:
-                result = StyleChecker.check_class_style(token)
+                result = StyleChecker.check_class_style(token.value)
             correct, message = result
             if not correct:
                 StyleProblem.warning(token, message)
