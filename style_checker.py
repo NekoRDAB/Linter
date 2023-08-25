@@ -8,23 +8,26 @@ class StyleChecker:
         message = ""
         correct = True
 
-        for symbol in name:
-            if symbol.isdigit():
-                message += "A variable name must not contain digits.\n"
-                correct = False
-                break
+        def check_rule(condition, if_false):
+            nonlocal message, correct
+            for symbol in name:
+                if condition(symbol):
+                    message += if_false
+                    correct = False
+                    break
 
-        for symbol in name:
-            if is_english_letter(symbol) and symbol.isupper():
-                message += "A variable name must not contain uppercase letters.\n"
-                correct = False
-                break
-
-        for symbol in name:
-            if not (is_english_letter(symbol) or symbol == '_'):
-                message += f"A variable name contains illegal symbol: {symbol}.\n"
-                correct = False
-                break
+        check_rule(
+            lambda x: x.isdigit(),
+            "A variable name must not contain digits.\n"
+        )
+        check_rule(
+            lambda x: is_english_letter(x) and x.isupper(),
+            "A variable name must not contain uppercase letters.\n"
+        )
+        check_rule(
+            lambda x: not (is_english_letter(x) or x == '_'),
+            "A variable name contains illegal symbol.\n"
+        )
 
         return correct, message
 
