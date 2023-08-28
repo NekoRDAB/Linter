@@ -1,7 +1,6 @@
 from tokenizer import Tokenizer
 from os import getcwd
 from json import load
-from token_type import TokenType
 from style_checker import StyleChecker
 from style_warning import StyleProblem
 from parser import Parser
