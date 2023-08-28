@@ -21,8 +21,8 @@ class Linter:
     def run(self):
         self.read_all_tokens()
         self.register_identifiers()
-        if self._rules["variables_style"]:
-            self.check_variables_style()
+        if self._rules["identifiers_style"]:
+            self.check_identifiers_style()
         if self._rules["whitespaces"]:
             self.check_whitespaces()
         if self._rules["empty_lines"]:
@@ -38,7 +38,7 @@ class Linter:
         self._parser = Parser(self._tokens_lines)
         self._symbol_table = self._parser.table
 
-    def check_variables_style(self):
+    def check_identifiers_style(self):
         for token in self._symbol_table:
             result = None
             if self._symbol_table[token] == IdentifierType.VARIABLE:
