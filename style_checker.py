@@ -117,3 +117,7 @@ class StyleChecker:
             message += "A class name must start with uppercase.\n"
 
         return correct, message
+
+    @staticmethod
+    def check_line_on_whitespaces(tokens_line):
+        pass

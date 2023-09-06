@@ -5,6 +5,7 @@ from style_checker import StyleChecker
 from style_warning import StyleProblem
 from parser import Parser
 from identifier_type import IdentifierType
+from token_type import TokenType
 
 
 class Linter:
@@ -51,10 +52,15 @@ class Linter:
                 result = StyleChecker.check_class_style(token.value)
             correct, message = result
             if not correct:
-                StyleProblem.warning(token, message)
+                StyleProblem.warning_token(token, message)
 
     def check_whitespaces(self):
-        pass
+        for line in self._tokens_lines:
+            result = StyleChecker.check_line_on_whitespaces(line)
+            correct, message = result
+            if not correct:
+                StyleProblem.warning(message)
+
 
     def check_empty_lines(self):
         pass
