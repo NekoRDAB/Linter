@@ -61,6 +61,5 @@ class Linter:
             if not correct:
                 StyleProblem.warning(message)
 
-
     def check_empty_lines(self):
         pass

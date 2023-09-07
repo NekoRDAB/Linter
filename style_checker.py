@@ -1,3 +1,6 @@
+from token_type import TokenType
+
+
 def is_english_letter(letter):
     return 'a' <= letter <= 'z' or 'A' <= letter <= 'Z'
 
@@ -120,4 +123,18 @@ class StyleChecker:
 
     @staticmethod
     def check_line_on_whitespaces(tokens_line):
-        pass
+        def check_operator():
+            nonlocal current_token, i, message
+            if i + 1 >= len(tokens_line) \
+                    or tokens_line[i+1].value != ' ':
+                message += f"Operator must be followed by 1 space at {current_token.position}"
+            if i - 1 < 0 \
+                    or tokens_line[i - 1].value != ' ':
+                message += f"1 space must be before operator at {current_token.position}"
+
+        message = ""
+        for i in range(len(tokens_line)):
+            current_token = tokens_line[i]
+            if current_token.type == TokenType.OPERATOR \
+                    and current_token.value != "!":
+                check_operator()
