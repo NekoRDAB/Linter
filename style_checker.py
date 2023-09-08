@@ -126,11 +126,32 @@ class StyleChecker:
         def check_operator():
             nonlocal current_token, i, message
             if i + 1 >= len(tokens_line) \
-                    or tokens_line[i+1].value != ' ':
+                    or tokens_line[i + 1].value != ' ':
                 message += f"Operator must be followed by 1 space at {current_token.position}"
             if i - 1 < 0 \
                     or tokens_line[i - 1].value != ' ':
                 message += f"1 space must be before operator at {current_token.position}"
+
+        def check_symbol():
+            nonlocal current_token, i, message
+            followed_by_ws = [',', ':', ';']
+            if current_token.value in followed_by_ws:
+                if i + 1 >= len(tokens_line) \
+                        or tokens_line[i + 1].value != ' ':
+                    message += f"{current_token.value} must be followed by 1 space at {current_token.position}"
+                if i - 1 < 0 \
+                        or tokens_line[i - 1].type == TokenType.SPACE:
+                    message += f"Avoid space before {current_token.value} at {current_token.position}"
+            no_ws_after = ['(', '[', '{']
+            if current_token.value in no_ws_after:
+                if i + 1 >= len(tokens_line) \
+                        or tokens_line[i+1].type == TokenType.SPACE:
+                    message += f"Avoid space after {current_token.value} at {current_token.position}"
+            no_ws_before = [')', ']', '}']
+            if current_token.value in no_ws_before:
+                if i - 1 < 0 \
+                        or tokens_line[i - 1].type == TokenType.SPACE:
+                    message += f"Avoid space before {current_token.value} at {current_token.position}"
 
         message = ""
         for i in range(len(tokens_line)):
@@ -138,3 +159,5 @@ class StyleChecker:
             if current_token.type == TokenType.OPERATOR \
                     and current_token.value != "!":
                 check_operator()
+            elif current_token.type == TokenType.SYMBOL:
+                check_symbol()
