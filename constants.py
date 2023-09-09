@@ -8,5 +8,5 @@ KEYWORDS = [
         "with", "as", "self", "from", "import", "break", "continue",
 ]
 SYMBOLS = [
-        ':', '(', ')', '[', ']', '.', ',',
+        ':', '(', ')', '[', ']', '.', ',', ';', '{', '}'
 ]
