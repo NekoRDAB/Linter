@@ -3,7 +3,7 @@ from os import getcwd
 from json import load
 from style_checker import StyleChecker
 from style_warning import StyleProblem
-from parser import Parser
+from parser_class import Parser
 from identifier_type import IdentifierType
 from token_type import TokenType
 
@@ -15,7 +15,6 @@ class Linter:
         self._style_checker = None
         self._parser = None
         self._symbol_table = None
-        self.register_identifiers()
         with open(rules) as f:
             self._rules = load(f)
 

@@ -125,11 +125,11 @@ class StyleChecker:
     def check_line_on_whitespaces(tokens_line):
         def check_operator():
             nonlocal current_token, i, message
-            if i + 1 >= len(tokens_line) \
-                    or tokens_line[i + 1].value != ' ':
+            if i + 1 >= len(tokens_line.tokens) \
+                    or tokens_line.tokens[i + 1].value != ' ':
                 message += f"Operator must be followed by 1 space at {current_token.pos}\n"
             if i - 1 < 0 \
-                    or tokens_line[i - 1].value != ' ':
+                    or tokens_line.tokens[i - 1].value != ' ':
                 message += f"1 space must be before operator at {current_token.pos}\n"
 
         def check_symbol():
@@ -137,32 +137,32 @@ class StyleChecker:
             followed_by_ws = [',', ':', ';']
             if current_token.value in followed_by_ws:
                 if i - 1 < 0 \
-                        or tokens_line[i - 1].type == TokenType.SPACE:
+                        or tokens_line.tokens[i - 1].type == TokenType.SPACE:
                     message += f"Avoid space before {current_token.value} at {current_token.pos}\n"
-                if i + 1 >= len(tokens_line) \
-                        or tokens_line[i + 1].value != ' ':
+                if i + 1 >= len(tokens_line.tokens) \
+                        or tokens_line.tokens[i + 1].value != ' ':
                     message += f"{current_token.value} must be followed by 1 space at {current_token.pos}\n"
             no_ws_after = ['(', '[', '{', '!']
             if current_token.value in no_ws_after:
-                if i + 1 >= len(tokens_line) \
-                        or tokens_line[i+1].type == TokenType.SPACE:
+                if i + 1 >= len(tokens_line.tokens) \
+                        or tokens_line.tokens[i+1].type == TokenType.SPACE:
                     message += f"Avoid space after {current_token.value} at {current_token.pos}\n"
             no_ws_before = [')', ']', '}']
             if current_token.value in no_ws_before:
                 if i - 1 < 0 \
-                        or tokens_line[i - 1].type == TokenType.SPACE:
+                        or tokens_line.tokens[i - 1].type == TokenType.SPACE:
                     message += f"Avoid space before {current_token.value} at {current_token.pos}\n"
             if current_token.value == '.':
                 if i - 1 >= 0 \
-                        and tokens_line[i - 1].type == TokenType.SPACE:
+                        and tokens_line.tokens[i - 1].type == TokenType.SPACE:
                     message += f"Avoid space before . at {current_token.pos}\n"
-                if i + 1 < len(tokens_line) \
-                        and tokens_line[i + 1].type == TokenType.SPACE:
+                if i + 1 < len(tokens_line.tokens) \
+                        and tokens_line.tokens[i + 1].type == TokenType.SPACE:
                     message += f"Avoid space after . at {current_token.pos}\n"
 
         message = ""
-        for i in range(len(tokens_line)):
-            current_token = tokens_line[i]
+        for i in range(len(tokens_line.tokens)):
+            current_token = tokens_line.tokens[i]
             if current_token.type == TokenType.OPERATOR \
                     and current_token.value != "!":
                 check_operator()
