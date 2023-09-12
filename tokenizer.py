@@ -40,6 +40,8 @@ class Tokenizer:
             return self.read_inline_comment()
         elif first_symbol in ['\'', '\"']:
             return self.read_string_constant()
+        elif first_symbol == "\n":
+            return Token(TokenType.NEW_LINE, "\n", self._code.position)
         else:
             raise NotImplementedError()
 

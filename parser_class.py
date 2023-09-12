@@ -44,7 +44,7 @@ class Parser:
 
     def parse_line_variables(self, tokens_line):
         tokens = self.skip_whitespaces_and_comments(tokens_line)
-        for i in range(1, len(tokens)):
+        for i in range(0, len(tokens)):
             token = tokens[i]
             if token.type == TokenType.IDENTIFIER \
                     and token.value not in self._table:

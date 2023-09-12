@@ -8,3 +8,4 @@ class TokenType:
     INTEGER_CONSTANT = 6
     STRING_CONSTANT = 7
     COMMENT = 8
+    NEW_LINE = 9
