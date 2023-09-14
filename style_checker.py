@@ -198,10 +198,27 @@ class StyleChecker:
                     after_next = lines[current_line + 2]
                     if after_next[0].type == TokenType.NEW_LINE:
                         return
-            message += f"Imports must be followed by two new lines at {current_line}"
+            message += f"Imports must be followed by two empty lines at {current_line}"
+
+        def check_empty_lines_definition(current_line, kind):
+            nonlocal lines, message
+            if current_line - 1 < 0:
+                return
+            prev_line = lines[current_line - 1]
+            if prev_line.type == TokenType.NEW_LINE:
+                if current_line - 2 >= 0:
+                    before_prev = lines[current_line - 2]
+                    if before_prev.type == TokenType.NEW_LINE:
+                        return
+            message += f"Two empty lines must be before {kind} definition"
 
         message = ""
         for i in range(len(lines)):
             line = lines[i]
             if line[0].type == TokenType.KEYWORD and line[0].value == "import":
                 check_empty_lines_import(i)
+            elif line[0].type == TokenType.KEYWORD:
+                if line[0].value == "class":
+                    check_empty_lines_definition(i, "class")
+                elif line[0].value == "def":
+                    check_empty_lines_definition(i, "function")
