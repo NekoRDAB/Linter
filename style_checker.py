@@ -183,3 +183,25 @@ class StyleChecker:
                 check_symbol()
 
         return message == "", message
+
+    @staticmethod
+    def check_empty_lines(lines):
+        def check_empty_lines_import(current_line):
+            nonlocal lines, message
+            if current_line + 1 >= len(lines):
+                return
+            next_line = lines[current_line + 1]
+            if next_line[0].type == TokenType.KEYWORD and next_line[0].value == "import":
+                check_empty_lines_import(current_line + 1)
+            elif next_line[0].type == TokenType.NEW_LINE:
+                if current_line + 2 < len(lines):
+                    after_next = lines[current_line + 2]
+                    if after_next[0].type == TokenType.NEW_LINE:
+                        return
+            message += f"Imports must be followed by two new lines at {current_line}"
+
+        message = ""
+        for i in range(len(lines)):
+            line = lines[i]
+            if line[0].type == TokenType.KEYWORD and line[0].value == "import":
+                check_empty_lines_import(i)
