@@ -191,12 +191,12 @@ class StyleChecker:
             if current_line - 1 < 0:
                 return
             prev_line = lines[current_line - 1]
-            if prev_line.type == TokenType.NEW_LINE:
+            if prev_line[0].type == TokenType.NEW_LINE:
                 if current_line - 2 >= 0:
                     before_prev = lines[current_line - 2]
-                    if before_prev.type == TokenType.NEW_LINE:
+                    if before_prev[0].type == TokenType.NEW_LINE:
                         return
-            message += f"Two empty lines must be before {kind} definition after line {current_line}\n"
+            message += f"Two empty lines or beginning of file must be before {kind} definition at line {current_line}\n"
 
         message = ""
         for i in range(len(lines)):

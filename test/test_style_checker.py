@@ -101,6 +101,14 @@ class Test(unittest.TestCase):
         correct, message = StyleChecker.check_empty_lines(tokens_lines)
         self.assertFalse(correct)
 
+    def test_empty_lines_definition(self):
+        tokens_lines = self.tokenizing_lines("\\style_checker_empty_lines_definition_correct.txt")
+        correct, message = StyleChecker.check_empty_lines(tokens_lines)
+        self.assertTrue(correct)
+        tokens_lines = self.tokenizing_lines("\\style_checker_empty_lines_definition_incorrect.txt")
+        correct, message = StyleChecker.check_empty_lines(tokens_lines)
+        self.assertFalse(correct)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,7 @@
+
+class MyClass:
+def my_function():
+
+class MyClass2:
+
+def my_function():
