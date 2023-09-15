@@ -24,7 +24,8 @@ class Test(unittest.TestCase):
         expected = [
             '+', '-', '*', '/', '%', '**', '//', '=', '!',
             '==', '!=', '>', '<', '>=', '<=', '&', '|', '^',
-            '+=', '-=', '*=', '/=', '!']
+            '+=', '-=', '*=', '/=', '!'
+        ]
         self.assertEqual(expected, result)
 
     def test_read_whitespaces(self):
