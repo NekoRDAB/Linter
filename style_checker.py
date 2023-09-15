@@ -184,7 +184,7 @@ class StyleChecker:
                     after_next = lines[current_line + 2]
                     if after_next[0].type == TokenType.NEW_LINE:
                         return
-            message += f"Imports must be followed by two empty lines after line {current_line + 1}\n"
+            message += f"Imports must be followed by two newlines after line {current_line + 1}\n"
 
         def check_empty_lines_definition(current_line, kind):
             nonlocal lines, message
@@ -196,7 +196,7 @@ class StyleChecker:
                     before_prev = lines[current_line - 2]
                     if before_prev[0].type == TokenType.NEW_LINE:
                         return
-            message += f"Two empty lines or beginning of file must be before {kind} definition at line {current_line}\n"
+            message += f"Two newlines or beginning of file must be before {kind} definition at line {current_line}\n"
 
         message = ""
         for i in range(len(lines)):
