@@ -1,5 +1,4 @@
 from constants import OPERATORS, KEYWORDS, SYMBOLS
-from line_tokens import LineTokens
 from code_lines import CodeLines
 from token_class import Token
 from token_type import TokenType
@@ -18,7 +17,7 @@ class Tokenizer:
         while current_token is not None:
             result.append(current_token)
             current_token = self.try_read_next()
-        return LineTokens(result)
+        return result
 
     def try_read_next(self):
         code = self._code

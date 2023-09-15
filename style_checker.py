@@ -114,7 +114,7 @@ class StyleChecker:
         return message == "", message
 
     @staticmethod
-    def check_line_on_whitespaces(tokens_line):
+    def check_whitespaces(tokens_line):
         def check_operator():
             nonlocal current_token, i, message
             if i + 1 >= len(tokens_line) \
@@ -178,13 +178,13 @@ class StyleChecker:
                 return
             next_line = lines[current_line + 1]
             if next_line[0].type == TokenType.KEYWORD and next_line[0].value == "import":
-                check_empty_lines_import(current_line + 1)
+                return
             elif next_line[0].type == TokenType.NEW_LINE:
                 if current_line + 2 < len(lines):
                     after_next = lines[current_line + 2]
                     if after_next[0].type == TokenType.NEW_LINE:
                         return
-            message += f"Imports must be followed by two empty lines at {current_line}"
+            message += f"Imports must be followed by two empty lines after line {current_line + 1}\n"
 
         def check_empty_lines_definition(current_line, kind):
             nonlocal lines, message
@@ -196,7 +196,7 @@ class StyleChecker:
                     before_prev = lines[current_line - 2]
                     if before_prev.type == TokenType.NEW_LINE:
                         return
-            message += f"Two empty lines must be before {kind} definition"
+            message += f"Two empty lines must be before {kind} definition after line {current_line}\n"
 
         message = ""
         for i in range(len(lines)):

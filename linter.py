@@ -55,7 +55,7 @@ class Linter:
 
     def check_whitespaces(self):
         for line in self._tokens_lines:
-            result = StyleChecker.check_line_on_whitespaces(line)
+            result = StyleChecker.check_whitespaces(line)
             correct, message = result
             if not correct:
                 StyleProblem.warning(message)
