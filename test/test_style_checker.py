@@ -27,55 +27,45 @@ class Test(unittest.TestCase):
             line = tokenizer.read_line()
         return result
 
-    def test_correct_variable_name(self):
-        correct, message = StyleChecker.check_variable_style("correct_name")
-        self.assertTrue(correct)
+    def style_checker_identifiers_names(
+            self, method, correct_names, incorrect_names
+    ):
+        if correct_names:
+            for correct_name in correct_names:
+                correct, message = method(correct_name)
+                self.assertTrue(correct)
+        if incorrect_names:
+            for incorrect_name in incorrect_names:
+                correct, result = method(incorrect_name)
+                self.assertFalse(correct)
 
-    def test_incorrect_variable_name(self):
-        correct, message = StyleChecker.check_variable_style("digits123")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_variable_style("Uppercase")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_variable_style("русские_буквы")
-        self.assertFalse(correct)
+    def test_variable_name(self):
+        self.style_checker_identifiers_names(
+            StyleChecker.check_variable_style,
+            ["correct_name"],
+            ["digits123", "Uppercase", "русские_буквы"]
+        )
 
-    def test_correct_method_name(self):
-        correct, message = StyleChecker.check_method_style("correct_name")
-        self.assertTrue(correct)
+    def test_method_name(self):
+        self.style_checker_identifiers_names(
+            StyleChecker.check_method_style,
+            ["correct_name"],
+            ["digits123", "Uppercase", "русские_буквы"]
+        )
 
-    def test_incorrect_method_name(self):
-        correct, message = StyleChecker.check_method_style("digits123")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_method_style("Uppercase")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_method_style("русские_буквы")
-        self.assertFalse(correct)
+    def test_package_name(self):
+        self.style_checker_identifiers_names(
+            StyleChecker.check_package_style,
+            ["correct_name"],
+            ["digits123", "Uppercase", "русские_буквы"]
+        )
 
-    def test_correct_package_name(self):
-        correct, message = StyleChecker.check_package_style("correct_name")
-        self.assertTrue(correct)
-
-    def test_incorrect_package_name(self):
-        correct, message = StyleChecker.check_package_style("digits123")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_package_style("Uppercase")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_package_style("русские_буквы")
-        self.assertFalse(correct)
-
-    def test_correct_class_name(self):
-        correct, message = StyleChecker.check_class_style("CorrectName")
-        self.assertTrue(correct)
-
-    def test_incorrect_class_name(self):
-        correct, message = StyleChecker.check_class_style("Digits123")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_class_style("Under_Score")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_class_style("русские_буквы")
-        self.assertFalse(correct)
-        correct, message = StyleChecker.check_class_style("lowercase")
-        self.assertFalse(correct)
+    def test_class_name(self):
+        self.style_checker_identifiers_names(
+            StyleChecker.check_class_style,
+            ["CorrectName"],
+            ["Digits123", "lowercase", "русские_буквы", "Under_Score"]
+        )
 
     def style_checker_test_ws(self, correct_file, incorrect_file):
         tokens_line = self.tokenizing_line(correct_file)
