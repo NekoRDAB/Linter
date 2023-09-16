@@ -198,6 +198,13 @@ class StyleChecker:
                         return
             message += f"Two newlines or beginning of file must be before {kind} definition at line {current_line}\n"
 
+        def check_empty_lines_end_of_file():
+            nonlocal lines, message
+            if len(lines) > 0:
+                if len(lines[-1]) > 1 and lines[-1][-1].type == TokenType.NEW_LINE:
+                    return
+            message += "There must be exactly one newline at end of file.\n"
+
         message = ""
         for i in range(len(lines)):
             line = lines[i]
@@ -208,4 +215,5 @@ class StyleChecker:
                     check_empty_lines_definition(i, "class")
                 elif line[0].value == "def":
                     check_empty_lines_definition(i, "function")
+        check_empty_lines_end_of_file()
         return message == "", message
