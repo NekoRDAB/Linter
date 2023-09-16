@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
             line = tokenizer.read_line()
         return result
 
-    def style_checker_identifiers_names(
+    def style_checker_test_identifiers_names(
             self, method, correct_names, incorrect_names
     ):
         if correct_names:
@@ -40,28 +40,28 @@ class Test(unittest.TestCase):
                 self.assertFalse(correct)
 
     def test_variable_name(self):
-        self.style_checker_identifiers_names(
+        self.style_checker_test_identifiers_names(
             StyleChecker.check_variable_style,
             ["correct_name"],
             ["digits123", "Uppercase", "русские_буквы"]
         )
 
     def test_method_name(self):
-        self.style_checker_identifiers_names(
+        self.style_checker_test_identifiers_names(
             StyleChecker.check_method_style,
             ["correct_name"],
             ["digits123", "Uppercase", "русские_буквы"]
         )
 
     def test_package_name(self):
-        self.style_checker_identifiers_names(
+        self.style_checker_test_identifiers_names(
             StyleChecker.check_package_style,
             ["correct_name"],
             ["digits123", "Uppercase", "русские_буквы"]
         )
 
     def test_class_name(self):
-        self.style_checker_identifiers_names(
+        self.style_checker_test_identifiers_names(
             StyleChecker.check_class_style,
             ["CorrectName"],
             ["Digits123", "lowercase", "русские_буквы", "Under_Score"]
