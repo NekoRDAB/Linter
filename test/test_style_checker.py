@@ -77,45 +77,51 @@ class Test(unittest.TestCase):
         correct, message = StyleChecker.check_class_style("lowercase")
         self.assertFalse(correct)
 
-    def test_ws_operator(self):
-        tokens_line = self.tokenizing_line("\\style_checker_ws_operators_correct.txt")
+    def style_checker_test_ws(self, correct_file, incorrect_file):
+        tokens_line = self.tokenizing_line(correct_file)
         correct, message = StyleChecker.check_whitespaces(tokens_line)
         self.assertTrue(correct)
-        tokens_line = self.tokenizing_line("\\style_checker_ws_operators_incorrect.txt")
+        tokens_line = self.tokenizing_line(incorrect_file)
         correct, message = StyleChecker.check_whitespaces(tokens_line)
         self.assertFalse(correct)
 
+    def test_ws_operator(self):
+        self.style_checker_test_ws(
+            "\\style_checker_ws_operators_correct.txt",
+            "\\style_checker_ws_operators_incorrect.txt"
+        )
+
     def test_ws_symbol(self):
-        tokens_line = self.tokenizing_line("\\style_checker_ws_symbols_correct.txt")
-        correct, message = StyleChecker.check_whitespaces(tokens_line)
+        self.style_checker_test_ws(
+            "\\style_checker_ws_symbols_correct.txt",
+            "\\style_checker_ws_symbols_incorrect.txt"
+        )
+
+    def style_checker_test_empty_lines(self, correct_file, incorrect_file):
+        tokens_lines = self.tokenizing_lines(correct_file)
+        correct, message = StyleChecker.check_empty_lines(tokens_lines)
         self.assertTrue(correct)
-        tokens_line = self.tokenizing_line("\\style_checker_ws_symbols_incorrect.txt")
-        correct, message = StyleChecker.check_whitespaces(tokens_line)
+        tokens_lines = self.tokenizing_lines(incorrect_file)
+        correct, message = StyleChecker.check_empty_lines(tokens_lines)
         self.assertFalse(correct)
 
     def test_empty_lines_package(self):
-        tokens_lines = self.tokenizing_lines("\\style_checker_empty_lines_package_correct.txt")
-        correct, message = StyleChecker.check_empty_lines(tokens_lines)
-        self.assertTrue(correct)
-        tokens_lines = self.tokenizing_lines("\\style_checker_empty_lines_package_incorrect.txt")
-        correct, message = StyleChecker.check_empty_lines(tokens_lines)
-        self.assertFalse(correct)
+        self.style_checker_test_empty_lines(
+            "\\style_checker_empty_lines_package_correct.txt",
+            "\\style_checker_empty_lines_package_incorrect.txt"
+        )
 
     def test_empty_lines_definition(self):
-        tokens_lines = self.tokenizing_lines("\\style_checker_empty_lines_definition_correct.txt")
-        correct, message = StyleChecker.check_empty_lines(tokens_lines)
-        self.assertTrue(correct)
-        tokens_lines = self.tokenizing_lines("\\style_checker_empty_lines_definition_incorrect.txt")
-        correct, message = StyleChecker.check_empty_lines(tokens_lines)
-        self.assertFalse(correct)
+        self.style_checker_test_empty_lines(
+            "\\style_checker_empty_lines_definition_correct.txt",
+            "\\style_checker_empty_lines_definition_incorrect.txt"
+        )
 
     def test_empty_lines_eof(self):
-        tokens_lines = self.tokenizing_lines("\\style_checker_empty_lines_eof_correct.txt")
-        correct, message = StyleChecker.check_empty_lines(tokens_lines)
-        self.assertTrue(correct)
-        tokens_lines = self.tokenizing_lines("\\style_checker_empty_lines_eof_incorrect.txt")
-        correct, message = StyleChecker.check_empty_lines(tokens_lines)
-        self.assertFalse(correct)
+        self.style_checker_test_empty_lines(
+            "\\style_checker_empty_lines_eof_correct.txt",
+            "\\style_checker_empty_lines_eof_incorrect.txt"
+        )
 
 
 if __name__ == "__main__":
