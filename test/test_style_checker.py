@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     def tokenizing_line(relative_path):
         path = PATH_TO_DIR + relative_path
         tokenizer = Tokenizer(path)
-        result = tokenizer.read_line().tokens
+        result = tokenizer.read_line()
         return result
 
     @staticmethod

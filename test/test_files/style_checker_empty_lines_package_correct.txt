@@ -3,3 +3,6 @@ import math
 
 a = 5
 import python
+
+
+b = 42
