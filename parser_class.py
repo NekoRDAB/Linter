@@ -52,7 +52,7 @@ class Parser:
 
     def skip_whitespaces_and_comments(self, tokens_line):
         result = []
-        for token in tokens_line.tokens:
+        for token in tokens_line:
             if token.type not in [TokenType.SPACE, TokenType.COMMENT]:
                 result.append(token)
         return result

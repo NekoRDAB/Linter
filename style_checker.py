@@ -14,20 +14,20 @@ class StyleChecker:
             nonlocal message
             for symbol in name:
                 if condition(symbol):
-                    message += if_false
+                    message += f"{if_false}: {name}\n"
                     break
 
         check_rule(
             lambda x: x.isdigit(),
-            "A variable name must not contain digits.\n"
+            "A variable name must not contain digits"
         )
         check_rule(
             lambda x: is_english_letter(x) and x.isupper(),
-            "A variable name must not contain uppercase letters.\n"
+            "A variable name must not contain uppercase letters"
         )
         check_rule(
             lambda x: not (is_english_letter(x) or x == '_' or x.isdigit()),
-            "A variable name contains an illegal symbol.\n"
+            "A variable name contains an illegal symbol"
         )
 
         return message == "", message
@@ -40,20 +40,20 @@ class StyleChecker:
             nonlocal message
             for symbol in name:
                 if condition(symbol):
-                    message += if_false
+                    message += f"{if_false}: {name}\n"
                     break
 
         check_rule(
             lambda x: x.isdigit(),
-            "A method name must not contain digits.\n"
+            "A method name must not contain digits"
         )
         check_rule(
             lambda x: is_english_letter(x) and x.isupper(),
-            "A method name must not contain uppercase letters.\n"
+            "A method name must not contain uppercase letters"
         )
         check_rule(
             lambda x: not (is_english_letter(x) or x == '_' or x.isdigit()),
-            "A method name contains an illegal symbol.\n"
+            "A method name contains an illegal symbol"
         )
 
         return message == "", message
@@ -66,20 +66,20 @@ class StyleChecker:
             nonlocal message
             for symbol in name:
                 if condition(symbol):
-                    message += if_false
+                    message += f"{if_false}: {name}\n"
                     break
 
         check_rule(
             lambda x: x.isdigit(),
-            "A package name must not contain digits.\n"
+            "A package name must not contain digits"
         )
         check_rule(
             lambda x: is_english_letter(x) and x.isupper(),
-            "A package name must not contain uppercase letters.\n"
+            "A package name must not contain uppercase letters"
         )
         check_rule(
             lambda x: not (is_english_letter(x) or x == '_'),
-            "A package name contains an illegal symbol.\n"
+            "A package name contains an illegal symbol"
         )
 
         return message == "", message
@@ -92,24 +92,24 @@ class StyleChecker:
             nonlocal message
             for symbol in name:
                 if condition(symbol):
-                    message += if_false
+                    message += f"{if_false}: {name}\n"
                     break
 
         check_rule(
             lambda x: x.isdigit(),
-            "A class name must not contain digits.\n"
+            "A class name must not contain digits"
         )
         check_rule(
             lambda x: x == '_',
-            "A class name must not contain underscores.\n"
+            "A class name must not contain underscores"
         )
         check_rule(
             lambda x: not (is_english_letter(x) or x == '_'),
-            "A class name contains an illegal symbol.\n"
+            "A class name contains an illegal symbol"
         )
         if name[0].islower():
             correct = False
-            message += "A class name must start with uppercase.\n"
+            message += f"A class name must start with uppercase: {name}\n"
 
         return message == "", message
 
