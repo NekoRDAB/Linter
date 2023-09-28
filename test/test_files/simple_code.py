@@ -1,7 +1,7 @@
 class myClass:
-    def eval(self, a , b):
+    def Eval(self, a , b):
         return a+b
 
 
-obj = myClass()
-X = obj.eval(1, 5)
+_OBJ = myClass()
+X = _OBJ.Eval(1, 5)

@@ -5,7 +5,6 @@ from style_checker import StyleChecker
 from style_warning import StyleProblem
 from parser_class import Parser
 from identifier_type import IdentifierType
-from token_type import TokenType
 
 
 class Linter:

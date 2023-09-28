@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         tokenizer = Tokenizer(path)
         tokens_line = tokenizer.read_line()
         result = []
-        for token in tokens_line.tokens:
+        for token in tokens_line:
             if token.type in token_types:
                 result.append(token.value)
         return result
