@@ -94,6 +94,12 @@ class Test(unittest.TestCase):
             "\\style_checker_ws_symbols_incorrect.txt"
         )
 
+    def test_ws_comments(self):
+        self.style_checker_test_ws(
+            "\\style_checker_ws_comments_correct.txt",
+            "\\style_checker_ws_comments_incorrect.txt"
+        )
+
     def style_checker_test_empty_lines(self, correct_file, incorrect_file):
         tokens_lines = self.tokenizing_lines(correct_file)
         correct, message = StyleChecker.check_empty_lines(tokens_lines)

@@ -184,6 +184,18 @@ class StyleChecker:
                         and tokens_line[i + 1].type == TokenType.SPACE:
                     message += f"Avoid space after {value} at {current_token.pos}\n"
 
+        def check_comment():
+            nonlocal current_token, tokens_line, i, message
+            if i > 0:
+                prev = tokens_line[i-1]
+                if prev.type != TokenType.SPACE \
+                        or len(prev.value) < 2:
+                    message += f"Beginning of line or at least 2 ws must be before comment at {current_token.pos}\n"
+            if len(current_token.value) < 1 \
+                    or current_token.value[:1] != " " \
+                    or current_token.value[:2] == "  ":
+                message += f"Comment must start with only 1 ws\n"
+
         message = ""
         for i in range(len(tokens_line)):
             current_token = tokens_line[i]
@@ -193,6 +205,8 @@ class StyleChecker:
             elif current_token.type == TokenType.SYMBOL \
                     or current_token.value == "!":
                 check_symbol()
+            elif current_token.type == TokenType.COMMENT:
+                check_comment()
 
         return message == "", message
 
