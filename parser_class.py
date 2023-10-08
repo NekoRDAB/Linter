@@ -12,6 +12,7 @@ class Parser:
             self.parse_line_package(line)
             self.parse_line_classes(line)
             self.parse_line_methods(line)
+            self.parse_line_global_variables(line)
             self.parse_line_variables(line)
 
     def parse_line_package(self, tokens_line):
@@ -41,6 +42,18 @@ class Parser:
                     and tokens[i - 1].value == "def" \
                     and token.value not in self._table:
                 self._table[token.value] = IdentifierType.METHOD
+
+    def parse_line_global_variables(self, tokens_line):
+        tokens = self.skip_whitespaces_and_comments(tokens_line)
+        for i in range(0, len(tokens)):
+            token = tokens[i]
+            if token.type == TokenType.IDENTIFIER \
+                    and token.value not in self._table \
+                    and i > 0:
+                prev = tokens[i-1]
+                if prev.type == TokenType.KEYWORD \
+                        and prev.value == "global":
+                    self._table[token.value] = IdentifierType.GLOBAL_VARIABLE
 
     def parse_line_variables(self, tokens_line):
         tokens = self.skip_whitespaces_and_comments(tokens_line)
