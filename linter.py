@@ -41,6 +41,8 @@ class Linter:
             result = None
             if self._symbol_table[token] == IdentifierType.VARIABLE:
                 result = StyleChecker.check_variable_style(token)
+            elif self._symbol_table[token] == IdentifierType.GLOBAL_VARIABLE:
+                result = StyleChecker.check_global_variable_style(token)
             elif self._symbol_table[token] == IdentifierType.METHOD:
                 result = StyleChecker.check_method_style(token)
             elif self._symbol_table[token] == IdentifierType.PACKAGE:

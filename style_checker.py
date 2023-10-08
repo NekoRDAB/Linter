@@ -33,6 +33,30 @@ class StyleChecker:
         return message == "", message
 
     @staticmethod
+    def check_global_variable_style(name):
+        message = ""
+
+        def check_rule(condition, if_false):
+            nonlocal message
+            for symbol in name:
+                if condition(symbol):
+                    message += f"{if_false}: {name}\n"
+                    break
+
+        check_rule(
+            lambda x: x.isdigit(),
+            "A variable name must not contain digits"
+        )
+        check_rule(
+            lambda x: is_english_letter(x) and not x.isupper(),
+            "A variable name must not contain lowercase letters"
+        )
+        check_rule(
+            lambda x: not (is_english_letter(x) or x == '_' or x.isdigit()),
+            "A variable name contains an illegal symbol"
+        )
+
+    @staticmethod
     def check_method_style(name):
         message = ""
 
