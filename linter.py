@@ -11,7 +11,6 @@ class Linter:
     def __init__(self, code_file, rules=getcwd() + "\\default_rules.json"):
         self._tokenizer = Tokenizer(code_file)
         self._tokens_lines = []
-        self._style_checker = None
         self._parser = None
         self._symbol_table = None
         with open(rules) as f:
@@ -60,4 +59,6 @@ class Linter:
                 StyleProblem.warning(message)
 
     def check_empty_lines(self):
-        pass
+        correct, message = StyleChecker.check_empty_lines(self._tokens_lines)
+        if not correct:
+            StyleProblem.warning(message)
