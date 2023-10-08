@@ -46,6 +46,13 @@ class Test(unittest.TestCase):
             ["digits123", "Uppercase", "русские_буквы"]
         )
 
+    def test_global_variables_name(self):
+        self.style_checker_test_identifiers_names(
+            StyleChecker.check_global_variable_style,
+            ["CORRECT_NAME"],
+            ["loWERCASE", "digits123", "русские_буквы"]
+        )
+
     def test_method_name(self):
         self.style_checker_test_identifiers_names(
             StyleChecker.check_method_style,
