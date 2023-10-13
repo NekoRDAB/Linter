@@ -1,5 +1,6 @@
 {
 "identifiers_style": true,
 "whitespaces": true,
-"empty_lines": true
+"empty_lines": true,
+"unused_variables": true
 }

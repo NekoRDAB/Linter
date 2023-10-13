@@ -20,13 +20,13 @@ class Linter:
     def run(self):
         self.read_all_tokens()
         self.register_identifiers()
-        if self._rules["identifiers_style"]:
+        if "identifiers_style" in self._rules and self._rules["identifiers_style"]:
             self.check_identifiers_style()
-        if self._rules["whitespaces"]:
+        if "whitespaces" in self._rules and self._rules["whitespaces"]:
             self.check_whitespaces()
-        if self._rules["empty_lines"]:
+        if "empty_lines" in self._rules and self._rules["empty_lines"]:
             self.check_empty_lines()
-        if self._rules["unused_variables"]:
+        if "unused_variables" in self._rules and self._rules["unused_variables"]:
             self.check_unused_variables()
 
     def read_all_tokens(self):

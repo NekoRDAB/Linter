@@ -243,7 +243,7 @@ class StyleChecker:
             if len(lines) > 0:
                 if len(lines[-1]) > 1 and lines[-1][-1].type == TokenType.NEW_LINE:
                     return
-            message += "There must be exactly one newline at end of file.\n"
+            message += "There must be exactly one newline at end of file\n"
 
         message = ""
         for i in range(len(lines)):
