@@ -5,6 +5,7 @@ from style_checker import StyleChecker
 from style_warning import StyleProblem
 from parser_class import Parser
 from identifier_type import IdentifierType
+from variable_usage import VariableUsage
 
 
 class Linter:
@@ -25,6 +26,8 @@ class Linter:
             self.check_whitespaces()
         if self._rules["empty_lines"]:
             self.check_empty_lines()
+        if self._rules["unused_variables"]:
+            self.check_unused_variables()
 
     def read_all_tokens(self):
         tokens_line = self._tokenizer.read_line()
@@ -61,6 +64,15 @@ class Linter:
                 StyleProblem.warning(message)
 
     def check_empty_lines(self):
-        correct, message = StyleChecker.check_empty_lines(self._tokens_lines)
+        correct, message = StyleChecker.check_empty_lines(
+            self._tokens_lines
+        )
         if not correct:
             StyleProblem.warning(message)
+
+    def check_unused_variables(self):
+        unused_variables = VariableUsage.check_unused_variables(
+            self._symbol_table, self._tokens_lines
+        )
+        if unused_variables:
+            StyleProblem.warning(f"Unused variables: {unused_variables}")

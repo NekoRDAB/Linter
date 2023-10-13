@@ -63,7 +63,8 @@ class Parser:
                     and token.value not in self._table:
                 self._table[token.value] = IdentifierType.VARIABLE
 
-    def skip_whitespaces_and_comments(self, tokens_line):
+    @staticmethod
+    def skip_whitespaces_and_comments(tokens_line):
         result = []
         for token in tokens_line:
             if token.type not in [TokenType.SPACE, TokenType.COMMENT]:
