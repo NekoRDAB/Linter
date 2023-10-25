@@ -6,7 +6,7 @@ from linter import Linter
 
 
 def main():
-    parser = argparse.ArgumentParser(description="C# Linter")
+    parser = argparse.ArgumentParser(description="Python Linter")
     parser.add_argument(
         "code_file", type=str,
         help="Absolute path of a cs file or a directory containing code files",
